@@ -32,7 +32,31 @@ def get_group() -> int:
         except:
             print("Invalid syntax!")
 
+# Terminal menu to add more functionality to group checking
+def menu(data):
+    print("="*50)
+    print(f'\nViewing Group: [{data['name']} ({data['id']})]\nActions below... (Numeric input)\n')
+    print("(1). View Group Owner")
+    print("(2). View Group Shout")
+    print("(3). View Member Count")
+    print("(4). View Verification Status")
+    print("(5). View Group Owner")
+    print("(6). Check if Locked")
+    print("\n(7). EXIT")
+    print("="*50)
+
+    while True:
+        try:
+            selection = int(input("Select an option: "))
+            if selection > 7 or selection < 1:
+                print("Defaulting to 1")
+                selection = 1
+            break
+        except:
+            print("Input a number within the range")
+
 
 if __name__ == "__main__":
     group_id = get_group()
     data = validate_request(group_id)
+    menu(data)
