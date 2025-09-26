@@ -16,4 +16,15 @@ print(result.status_code)
 data = result.json()
 print(data['name'], data['owner'])
 
-# test
+# Gets user input for a ROBLOX group id. This will run until a number has been inputted
+def get_group() -> int:
+    
+    while True:
+        try:
+            id = int(input("Input a ROBLOX Group ID: "))
+            return id
+        except:
+            print("Invalid syntax!")
+
+
+get_group()
