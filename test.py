@@ -6,15 +6,21 @@ load_dotenv()
 
 auth_key = os.getenv('API_KEY')
 
-g_id = 826277858
-url = f'https://groups.roblox.com/v1/groups/{g_id}'
+# print(data['name'], data['owner'])
 
+# Checks if the inputted group exists
+# If validated, returns data in a JSON format.
+def validate_request(group_id: int):
+    url = f'https://groups.roblox.com/v1/groups/{group_id}'
+    result = requests.get(url)
 
-result = requests.get(url)
-
-print(result.status_code)
-data = result.json()
-print(data['name'], data['owner'])
+    if result.status_code == 200:
+        data = result.json()
+        print(f"Pinged group: {data['name']}")
+        return data
+    else:
+        print(f"Could not validate group [Error code: {result.status_code}]")
+    
 
 # Gets user input for a ROBLOX group id. This will run until a number has been inputted
 def get_group() -> int:
@@ -27,4 +33,6 @@ def get_group() -> int:
             print("Invalid syntax!")
 
 
-get_group()
+if __name__ == "__main__":
+    group_id = get_group()
+    data = validate_request(group_id)
