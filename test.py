@@ -40,8 +40,8 @@ def menu(data):
     print("(2). View Group Shout")
     print("(3). View Member Count")
     print("(4). View Verification Status")
-    print("(5). View Group Owner")
-    print("(6). Check if Locked")
+    print("(5). Join Requests Enabled")
+    print("(6). Check for Social Modules")
     print("\n(7). EXIT")
     print("="*50)
 
@@ -64,11 +64,26 @@ def menu(data):
             else:
                 print("[None]")
         case 2:
-            if data['shout']:
+            if data['shout'] != None:
                 print(f"Group Shout:\n{data['shout']['body']}")
             else:
                 print("(No shout available.)")
-                
+        case 3:
+            print(f"Member Count:\n{data['memberCount']}")
+        case 4:
+            print(f"Checking group verification status.\nIs Verified: {data['hasVerifiedBadge']}")
+        case 5:
+            print(f"Checking if group requires manual entry...\n")
+            if data['publicEntryAllowed'] == True:
+                print("Group does not have Join Requests on -- Anyone can join")
+            else:
+                print("Group requires you to to request to join -- Manual Entry.")
+        case 6:
+            print(f"Checking for social modules.\n")
+            if data['hasSocialModules'] == True:
+                print("This group has social modules (you'll have to check the group)")
+            else:
+                print("Group does not have any social modules connected.")
                 
     print("="*50)
 
