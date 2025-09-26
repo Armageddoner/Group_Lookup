@@ -84,15 +84,27 @@ def menu(data):
                 print("This group has social modules (you'll have to check the group)")
             else:
                 print("Group does not have any social modules connected.")
-                
+        case 7:
+            print("Exiting this group info...")
+            return True
     print("="*50)
+    input("[ENTER] to continue...")
+    print("="*50)
+    return False
+                
 
 
 if __name__ == "__main__":
-    group_id = get_group()
-    data = validate_request(group_id)
-    if data:
-        menu(data)
-    else:
-        print(f"[The group you provided ({group_id}) does not exist!]")
+    while True:
+        group_id = get_group()
+        data = validate_request(group_id)
+        if data:
+            while True:
+                exit_choice = menu(data)
+                if exit_choice == True:
+                    break
+                
+        else:
+            print(f"[The group you provided ({group_id}) does not exist!]")
+        
         
