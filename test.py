@@ -35,7 +35,7 @@ def get_group() -> int:
 # Terminal menu to add more functionality to group checking
 def menu(data):
     print("="*50)
-    print(f'\nViewing Group: [{data['name']} ({data['id']})]\nActions below... (Numeric input)\n')
+    print(f'\nViewing Group: [{data['name']} ({data['id']})]\n"{data['description']}"\nActions below... (Numeric input)\n')
     print("(1). View Group Owner")
     print("(2). View Group Shout")
     print("(3). View Member Count")
@@ -45,6 +45,7 @@ def menu(data):
     print("\n(7). EXIT")
     print("="*50)
 
+    selection: int = NotImplemented
     while True:
         try:
             selection = int(input("Select an option: "))
@@ -54,9 +55,29 @@ def menu(data):
             break
         except:
             print("Input a number within the range")
+    
+    match selection:
+        case 1:
+            print("Group Owner:")
+            if data['owner'] != None:
+                print(f'Name: {data['owner']['username']} ({data['owner']['displayName']})\nUserId: {data['owner']['userId']}\nVerified Badge: {data['owner']['hasVerifiedBadge']}')
+            else:
+                print("[None]")
+        case 2:
+            if data['shout']:
+                print(f"Group Shout:\n{data['shout']['body']}")
+            else:
+                print("(No shout available.)")
+                
+                
+    print("="*50)
 
 
 if __name__ == "__main__":
     group_id = get_group()
     data = validate_request(group_id)
-    menu(data)
+    if data:
+        menu(data)
+    else:
+        print(f"[The group you provided ({group_id}) does not exist!]")
+        
